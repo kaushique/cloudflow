@@ -37,7 +37,7 @@ steps:
       sudo rm sbt-$SBT_VERSION.deb
       sudo apt-get install sbt
       sudo sbt sbtVersion
-      displayName: Download and Install SBT 
+  displayName: Download and Install SBT 
  
 - script: |
       set -ex
@@ -55,7 +55,7 @@ steps:
       set -ex
       sudo sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.sbt
       sudo sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.sbt
-      displayName: Update the registry and repository details
+  displayName: Update the registry and repository details
   
 - script: |
       set -ex
