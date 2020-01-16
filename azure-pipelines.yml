@@ -38,12 +38,6 @@ steps:
       sudo apt-get install sbt
       sudo sbt sbtVersion
   displayName: Download and Install SBT 
- 
-- script: |
-      set -ex
-      sudo groupadd -o -g $(stat --format='%g' /var/run/docker.sock) docker
-      sudo usermod -a -G docker $(whoami)
-  displayName: Allow current user to access the docker socket
   
 - script: |
       set -ex
