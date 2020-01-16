@@ -24,18 +24,18 @@ steps:
 
 - script: |
       set -ex
-      curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/
-      echo >> /root/.bashrc
-      echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
+      sudo curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/
+      sudo echo >> /root/.bashrc
+      sudo echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
   displayName: Download, Install Scala and set the env path
 
 - script: |
       set -ex
-      curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
-      dpkg -i sbt-$SBT_VERSION.deb
-      rm sbt-$SBT_VERSION.deb
-      apt-get install sbt
-      sbt sbtVersion
+      sudo curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
+      sudo dpkg -i sbt-$SBT_VERSION.deb
+      sudo rm sbt-$SBT_VERSION.deb
+      sudo apt-get install sbt
+      sudo sbt sbtVersion
       displayName: Download and Install SBT 
  
 - script: |
@@ -46,14 +46,14 @@ steps:
   
 - script: |
       set -ex
-      cd cloudflow/examples/call-data-aggregator
-      cp target-env.sbt.example target-env.sbt
+      sudo cd cloudflow/examples/call-data-aggregator
+      sudo cp target-env.sbt.example target-env.sbt
   displayName: Navigate to app folder and rename the file
   
 - script: |
       set -ex
-      sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.sbt
-      sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.sbt
+      sudo sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.sbt
+      sudo sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.sbt
       displayName: Update the registry and repository details
   
 - script: |
