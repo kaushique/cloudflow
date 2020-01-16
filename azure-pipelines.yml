@@ -25,36 +25,36 @@ steps:
 - script: |
       set -ex
       sudo chmod -R 777 /tmp
-      sudo curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /tmp/  && \
-      echo >> /tmp/.bashrc  && \
-      echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /tmp/.bashrc
+      sudo curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /tmp/
+      sudo echo >> /tmp/.bashrc
+      sudo echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /tmp/.bashrc
   displayName: Download, Install Scala and set the env path
 
 - script: |
       set -ex
-      sudo curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb  && \
-      sudo dpkg -i sbt-$SBT_VERSION.deb  && \
-      sudo rm sbt-$SBT_VERSION.deb  && \
-      sudo apt-get install sbt  && \
+      sudo curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
+      sudo dpkg -i sbt-$SBT_VERSION.deb
+      sudo rm sbt-$SBT_VERSION.deb
+      sudo apt-get install sbt
       sudo sbt sbtVersion
       displayName: Download and Install SBT 
  
 - script: |
       set -ex
-      sudo groupadd -o -g $(stat --format='%g' /var/run/docker.sock) docker  && \
-      usermod -a -G docker $(whoami)
+      sudo groupadd -o -g $(stat --format='%g' /var/run/docker.sock) docker
+      sudo usermod -a -G docker $(whoami)
   displayName: Allow current user to access the docker socket
   
 - script: |
       set -ex
-      sudo cd cloudflow/examples/call-data-aggregator  && \
-      cp -p target-env.sbt.example target-env.sbt
+      sudo cd cloudflow/examples/call-data-aggregator
+      sudo cp -p target-env.sbt.example target-env.sbt
   displayName: Navigate to app folder and rename the file
   
 - script: |
       set -ex
-      sudo sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.sbt  && \
-      sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.sbt
+      sudo sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.sbt
+      sudo sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.sbt
       displayName: Update the registry and repository details
   
 - script: |
