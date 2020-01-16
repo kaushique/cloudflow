@@ -34,8 +34,8 @@ steps:
       set -ex
       sudo curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb  && \
       sudo dpkg -i sbt-$SBT_VERSION.deb  && \
-      rm sbt-$SBT_VERSION.deb  && \
-      apt-get install sbt  && \
+      sudo rm sbt-$SBT_VERSION.deb  && \
+      sudo apt-get install sbt  && \
       sudo sbt sbtVersion
       displayName: Download and Install SBT 
  
