@@ -1,0 +1,62 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+    SCALA_VERSION: 2.11.12
+    SBT_VERSION: 0.13.16
+    REGISTRY: MyDockerRegistry
+    REPOSITORY: kaushikr93/devops-experiments
+
+steps:
+- script: |
+      set -ex
+      sudo apt-get update 
+      sudo apt-get install -y libltdl7 && sudo apt-get install -y curl
+  displayName: Update and Install dependencies to prepare the env 
+
+- script: |
+      set -ex
+      curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/
+      echo >> /root/.bashrc
+      echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
+  displayName: Download, Install Scala and set the env path
+
+- script: |
+      set -ex
+      curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
+      dpkg -i sbt-$SBT_VERSION.deb
+      rm sbt-$SBT_VERSION.deb
+      apt-get install sbt
+      sbt sbtVersion
+      displayName: Download and Install SBT 
+ 
+- script: |
+      set -ex
+      sudo groupadd -o -g $(stat --format='%g' /var/run/docker.sock) docker
+      sudo usermod -a -G docker $(whoami)
+  displayName: Allow current user to access the docker socket
+  
+- script: |
+      set -ex
+      cd cloudflow/examples/call-data-aggregator
+      cp target-env.sbt.example target-env.sbt
+  displayName: Navigate to app folder and rename the file
+  
+- script: |
+      set -ex
+      sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.sbt
+      sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.sbt
+      displayName: Update the registry and repository details
+  
+- script: |
+      set -ex
+      sbt buildAndPublish
+  displayName: Build and publish the docker image using sbt plugin 
