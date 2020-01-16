@@ -19,7 +19,7 @@ steps:
 - script: |
       set -ex
       sudo apt-get update 
-      sudo apt-get install -y libltdl7 && sudo apt-get install -y curl
+      sudo apt-get install -y libltdl7 && sudo apt-get install -y curl && sudo apt-get install -y dpkg
   displayName: Update and Install dependencies to prepare the env 
 
 - script: |
@@ -47,9 +47,8 @@ steps:
   
 - script: |
       set -ex
-      sudo git clone https://github.com/kaushique/cloudflow.git  && \
-      cd cloudflow/examples/call-data-aggregator  && \
-      cp target-env.sbt.example target-env.sbt
+      sudo cd cloudflow/examples/call-data-aggregator  && \
+      cp -p target-env.sbt.example target-env.sbt
   displayName: Navigate to app folder and rename the file
   
 - script: |
