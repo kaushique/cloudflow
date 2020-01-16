@@ -24,6 +24,7 @@ steps:
 
 - script: |
       set -ex
+      echo "export GPG_TTY=$(tty)" >> ~/.profile
       sudo su -
       curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/
       echo >> /root/.bashrc
@@ -50,6 +51,7 @@ steps:
 - script: |
       set -ex
       sudo su -
+      git clone https://github.com/kaushique/cloudflow.git
       cd cloudflow/examples/call-data-aggregator
       cp target-env.sbt.example target-env.sbt
   displayName: Navigate to app folder and rename the file
