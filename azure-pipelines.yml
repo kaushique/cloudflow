@@ -50,14 +50,15 @@ steps:
   
 - script: |
       set -ex
-      file=target-env.txt
-      sed -i "s|YOUR_DOCKER_REGISTRY|$REGISTRY|g" "$file"
-      sed -i "s|YOUR_DOCKER_REPOSITORY|$REPOSITORY|g" "$file"
+      cd cloudflow/examples/call-record-aggregator
+      sed -i "s|YOUR_DOCKER_REGISTRY|$REGISTRY|g" target-env.txt
+      sed -i "s|YOUR_DOCKER_REPOSITORY|$REPOSITORY|g" target-env.txt
       cp -p target-env.txt target-env.sbt
       chmod 777 -R target-env.sbt
   displayName: Update the registry and repository details
   
 - script: |
       set -ex
+      cd cloudflow/examples/call-record-aggregator
       sudo sbt buildAndPublish
   displayName: Build and publish the docker image using sbt plugin 
