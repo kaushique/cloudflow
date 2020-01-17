@@ -50,8 +50,9 @@ steps:
   
 - script: |
       set -ex
-      sed -i 's/YOUR_DOCKER_REGISTRY/$REGISTRY/g' target-env.txt
-      sed -i 's/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g' target-env.txt
+      file=target-env.txt
+      sed -i "s|YOUR_DOCKER_REGISTRY|$REGISTRY|g" "$file"
+      sed -i "s|YOUR_DOCKER_REPOSITORY|$REPOSITORY|g" "$file"
       cp -p target-env.txt target-env.sbt
       chmod 777 -R target-env.sbt
   displayName: Update the registry and repository details
