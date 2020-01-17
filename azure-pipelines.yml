@@ -50,8 +50,8 @@ steps:
   
 - script: |
       set -ex
-      sudo sed -i 's/YOUR_DOCKER_REGISTRY/$REGISTRY/g' target-env.txt
-      sudo sed -i 's/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g' target-env.txt
+      sudo sed -i 's/YOUR_DOCKER_REGISTRY/$REGISTRY/g' "{}" target-env.txt
+      sudo sed -i 's/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g' "{}" target-env.txt
       cp -p target-env.txt target-env.sbt
       chmod 777 -R target-env.sbt
   displayName: Update the registry and repository details
