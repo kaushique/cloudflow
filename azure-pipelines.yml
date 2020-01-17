@@ -45,6 +45,7 @@ steps:
       git clone https://github.com/kaushique/cloudflow.git
       cd cloudflow/examples/call-record-aggregator
       cp -p target-env.sbt.example target-env.txt
+      chmod 777 -R target-env.txt
   displayName: Navigate to app folder and rename the file
   
 - script: |
@@ -52,6 +53,7 @@ steps:
       sudo sed -i "s/YOUR_DOCKER_REGISTRY/$REGISTRY/g" target-env.txt
       sudo sed -i "s/YOUR_DOCKER_REPOSITORY/$REPOSITORY/g" target-env.txt
       cp -p target-env.txt target-env.sbt
+      chmod 777 -R target-env.sbt
   displayName: Update the registry and repository details
   
 - script: |
