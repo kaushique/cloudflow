@@ -42,6 +42,7 @@ steps:
 - script: |
       set -ex
       pwd
+      git clone https://github.com/kaushique/cloudflow.git
       cd cloudflow/examples/call-record-aggregator
       cp -p target-env.sbt.example target-env.sbt
   displayName: Navigate to app folder and rename the file
