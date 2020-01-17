@@ -42,8 +42,8 @@ steps:
 - script: |
       set -ex
       pwd
-      sudo cd cloudflow/examples/call-record-aggregator
-      sudo cp -p target-env.sbt.example target-env.sbt
+      cd cloudflow/examples/call-record-aggregator
+      cp -p target-env.sbt.example target-env.sbt
   displayName: Navigate to app folder and rename the file
   
 - script: |
