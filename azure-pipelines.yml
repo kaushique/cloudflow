@@ -12,7 +12,7 @@ pool:
 variables:
     SCALA_VERSION: 2.11.12
     SBT_VERSION: 0.13.16
-    REGISTRY: MyDockerRegistry
+    REGISTRY: mydockerregistry
     REPOSITORY: kaushikr93/devops-experiments
 
 steps:
