@@ -1,0 +1,45 @@
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+# Starter pipeline
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Visual Studio Professional Subscription(e394c692-7ebe-4f4e-9241-b64f461672fc)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az group create --name aks-test --location centralus'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Visual Studio Professional Subscription(e394c692-7ebe-4f4e-9241-b64f461672fc)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az aks create --resource-group aks-test --name aks-automate-deploy --node-count 3 --node-vm-size Standard_DS3_v2 --enable-addons monitoring --subscription e394c692-7ebe-4f4e-9241-b64f461672fc --generate-ssh-key --service-principal 919cff89-0ad7-43cf-bc1d-0816abb7b4d9 --client-secret b5012222-2795-4b61-a4ee-8399c4a6544a'
+
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Visual Studio Professional Subscription(e394c692-7ebe-4f4e-9241-b64f461672fc)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'sudo az aks install-cli'
+
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Visual Studio Professional Subscription(e394c692-7ebe-4f4e-9241-b64f461672fc)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az aks get-credentials --resource-group aks-test --name aks-automate-deploy'
