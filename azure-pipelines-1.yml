@@ -23,10 +23,6 @@ steps:
     useGlobalConfig: true
     failOnStandardError: true
 
-- task: Delay@1
-  inputs:
-    delayForMinutes: '0.5'
-
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Visual Studio Professional Subscription(e394c692-7ebe-4f4e-9241-b64f461672fc)'
@@ -36,9 +32,6 @@ steps:
     useGlobalConfig: true
     failOnStandardError: true
 
-- task: Delay@1
-  inputs:
-    delayForMinutes: '0.5'
 
 - task: AzureCLI@2
   inputs:
@@ -49,9 +42,6 @@ steps:
         useGlobalConfig: true
         failOnStandardError: true
 
-- task: Delay@1
-  inputs:
-    delayForMinutes: '0.5'
 
 - task: AzureCLI@2
   inputs:
